@@ -1,0 +1,8 @@
+query untuk menampilkan data semua heroes beserta tipenya:
+SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, d.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id
+
+query untuk menampilkan seluruh data heroes berdasarkan type tertentu:
+SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, d.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE t.name = "Fighter"
+
+query untuk menampilkan spesifik data heroes dengan type nya:
+SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, d.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE h.id = 1
