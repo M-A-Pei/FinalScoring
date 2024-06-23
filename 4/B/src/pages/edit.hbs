@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>{{title}}</title>
+  </head>
+  <body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img width="80px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO0ka8KyflLO2lqjKgklSy9DOkc1adt86q8w&s" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Heroes list</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a href="/create"><button class="btn btn-outline-dark" type="submit">Add Hero</button></a>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <dav class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Edit {{data.hero}}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5 m-auto">
+                <form enctype="multipart/form-data" action="/edit/{{data.id}}" method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-secondary text-light" id="basic-addon1">Name</span>
+                        <input type="text" name="name" value="{{data.hero}}" class="form-control" placeholder="Hero Name">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text bg-secondary text-light">Picture</label>
+                        <input type="file" name="picture" class="form-control" id="inputGroupFile01">
+                    </div>
+
+                    <div class="input-group mb-3">
+                    <span class="input-group-text bg-secondary text-light" id="basic-addon1">Class</span>
+                    <select class="form-control" name="type_id" value="{{data.class}}"  id="orderFood">
+                      <option></option>
+                      <option value="1" {{#if (isTheSame 1 data.type_id)}} selected {{/if}}>Tank</option>
+                      <option value="2" {{#if (isTheSame 2 data.type_id)}} selected {{/if}}>Fighter</option>
+                      <option value="3" {{#if (isTheSame 3 data.type_id)}} selected {{/if}}>Healer</option>
+                      <option value="4" {{#if (isTheSame 4 data.type_id)}} selected {{/if}}>Ranged</option>
+                      <option value="5" {{#if (isTheSame 5 data.type_id)}} selected {{/if}}>Builder</option>
+                      <option value="6" {{#if (isTheSame 6 data.type_id)}} selected {{/if}}>Assasin</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-success text-light">edit hero</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
