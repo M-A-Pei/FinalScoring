@@ -9,6 +9,7 @@ const app = express()
 const port = 5000
 
 const config = require("./config/config.json")
+const { Query } = require("pg")
 const sequelize = new Sequelize(config.development)
 
 app.set("view engine", "hbs")
@@ -18,6 +19,8 @@ app.use("/uploads", express.static(path.join(__dirname, "src", "uploads")))
 hbs.registerHelper("isTheSame", function(x, y) {
     return x == y
   });
+
+hbs.registerPartials("./src/pages/partials")
 
 app.get('/', async (req, res)=>{
     const data = await sequelize.query(`SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id`, {type: QueryTypes.SELECT})
@@ -62,6 +65,13 @@ app.get('/detail/:id', async (req, res) => {
     const id = req.params.id
     const data = await sequelize.query(`SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE h.id='${id}'`, {type: QueryTypes.SELECT})
     res.render("detail", {title: "Detail Page", data: data[0]})
+})
+
+app.get("/types/:id", async (req, res)=>{
+    const id = req.params.id
+    const data = await sequelize.query(`SELECT h.name as hero, t.name as class, h.picture, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE h.type_id = '${id}'`, {type: QueryTypes.SELECT})
+
+    res.render("types", {title: `${data[0].class} heroes`, data, type: data[0].class})
 })
 
 app.listen(port, ()=>{
