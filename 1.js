@@ -4,9 +4,9 @@ function drawSikuSiku(n){
         return;
     }
     let primes = []
-    for(let i = 2; i <= n*n*n; i++){
+    for(let i = 2; i <= n*2*n*n; i++){
         let count = 0
-        for(let j = 1; j <= n*n*n; j++){
+        for(let j = 1; j <= n*2*n*n; j++){
             if(i % j == 0){
                 count++
             }
@@ -16,7 +16,7 @@ function drawSikuSiku(n){
             primes.push(i)
         }
     }
-    
+
     let primeCount = 0
     for(let i = 1; i <= n; i++){
         let line = ""
@@ -28,4 +28,4 @@ function drawSikuSiku(n){
     }
 }
 
-drawSikuSiku(9)
+drawSikuSiku(6)
