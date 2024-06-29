@@ -15,6 +15,7 @@ const sequelize = new Sequelize(config.development)
 app.set("view engine", "hbs")
 app.set("views", path.join(__dirname, "src", "pages"))
 app.use("/uploads", express.static(path.join(__dirname, "src", "uploads")))
+app.use(express.urlencoded([{extended:false}]))
 
 hbs.registerHelper("isTheSame", function(x, y) {
     return x == y
@@ -24,7 +25,7 @@ hbs.registerPartials("./src/pages/partials")
 
 app.get('/', async (req, res)=>{
     const data = await sequelize.query(`SELECT h.name AS hero, t.name AS class, h.picture, t.type_id, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id`, {type: QueryTypes.SELECT})
-    res.render("index", {title: "Home Page", data})
+    res.render("index", {title: "Home Page", data, findAll: true})
 })
 
 app.get('/create', (req, res) => {
@@ -71,7 +72,13 @@ app.get("/types/:id", async (req, res)=>{
     const id = req.params.id
     const data = await sequelize.query(`SELECT h.name as hero, t.name as class, h.picture, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE h.type_id = '${id}'`, {type: QueryTypes.SELECT})
 
-    res.render("types", {title: `${data[0].class} heroes`, data, type: data[0].class})
+    res.render("index", {title: `${data[0].class} heroes`, data, type: data[0].class, byType: true})
+})
+
+app.post("/search", async(req,res) => {
+    const search = req.body.search
+    const data = await sequelize.query(`SELECT h.name as hero, t.name as class, h.picture, h.id FROM public."heroes_db" h LEFT JOIN public."type_db" t on h.type_id = t.type_id WHERE LOWER(h.name) LIKE '%${search.toLowerCase()}%'`, {type: QueryTypes.SELECT})
+    res.render("index", {title: `${search} heroes`, data, bySearch: true, search})
 })
 
 app.listen(port, ()=>{

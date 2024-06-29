@@ -14,7 +14,17 @@
     <dav class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1>Heroes List:</h1>
+                {{#if byType}}
+                    <h1>{{type}} list:</h1>
+                {{/if}}
+
+                {{#if bySearch}}
+                    <h1>Search for "{{search}}":</h1>
+                {{/if}}
+
+                {{#if findAll}}
+                    <h1>Heroes List:</h1>
+                {{/if}}
             </div>
         </div>
         <div class="row">
