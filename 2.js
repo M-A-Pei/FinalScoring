@@ -11,6 +11,8 @@ function hitungVoucher(name, price){
             output = price - (price * (30/100))
             discount = 30
         }
+    }else{
+        console.log("tidak dapat diskon bleeeeh XD")
     }
 
     console.log(`uang yang harus di bayar: ${output}`)

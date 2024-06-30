@@ -1,4 +1,4 @@
-function sortArray(arr){
+function recursiveBubble(arr){
     arr.forEach((e, i) => {
         if(arr[i] > arr[i+1]){
             const a = arr[i]
@@ -6,7 +6,14 @@ function sortArray(arr){
             arr[i+1]  = a
         }
     });
-    console.log(`array ${arr}`)
+}
+
+function sortArray(arr){
+    arr.forEach(() => {
+        recursiveBubble(arr)
+    });
+
+    console.log(`sorted array: ${arr}`)
 
     let ganjil = []
     let genap = []
@@ -23,4 +30,4 @@ function sortArray(arr){
 
 }
 
-sortArray([1, 3, 2, 5, 10])
+sortArray([3, 2, 5, 10, 4, 6, 7, 8, 1, -2, -5, -1, -3, 0])
